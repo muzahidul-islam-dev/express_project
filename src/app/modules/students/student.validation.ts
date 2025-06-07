@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Name schema
-const userNameSchema = z.object({
+const userNameValidationSchema = z.object({
   firstName: z.string().max(20, { message: "First Name can not be more than 20 characters" })
     .nonempty({ message: "First name is required" }),
   middleName: z.string().optional(),
@@ -9,7 +9,7 @@ const userNameSchema = z.object({
 });
 
 // Guardian schema
-const guardianSchema = z.object({
+const guardianValidationSchema = z.object({
   fatherName: z.string().nonempty({ message: "Father name is required" }),
   fatherOccupation: z.string().nonempty({ message: "Father occupation is required" }),
   fatherContactNo: z.string().nonempty({ message: "Father Contact Number is required" }),
@@ -19,7 +19,7 @@ const guardianSchema = z.object({
 });
 
 // Local Guardian schema
-const localGuardianSchema = z.object({
+const localGuardianValidationSchema = z.object({
   name: z.string().nonempty({ message: "Local guardian name is required" }),
   occupation: z.string().nonempty({ message: "Local guardian occupation is required" }),
   contactNo: z.string().nonempty({ message: "Local guardian contact number is required" }),
@@ -27,25 +27,25 @@ const localGuardianSchema = z.object({
 });
 
 // Student schema
-const studentValidationSchema = z.object({
+const createStudentValidationSchema = z.object({
   body: z.object({
-    name: userNameSchema,
+    name: userNameValidationSchema,
     password: z.string().nonempty({ message: 'Passwor is required' }),
     gender: z.enum(["male", "female"], {
       errorMap: () => ({ message: "Gender must be 'male' or 'female'" }),
     }),
     avatar: z.string().url().optional(),
-    dateOfBirth: z.string(), // Use z.coerce.date() if using date inputs
+    dateOfBirth: z.string().optional(), // Use z.coerce.date() if using date inputs
     email: z.string().email({ message: "Invalid email" }),
     contactNo: z.string().nonempty({ message: "Contact number is required" }),
     emergencycontactNo: z.string().nonempty({ message: "Emergency contact number is required" }),
     bloodGroup: z.enum(["A+", "A-", "AB+", "B+", "B-"]).optional(),
     presentAddress: z.string().nonempty({ message: "Present address is required" }),
     permanentAddress: z.string().nonempty({ message: "Permanent address is required" }),
-    guardian: guardianSchema,
-    localGuardian: localGuardianSchema,
+    guardian: guardianValidationSchema,
+    localGuardian: localGuardianValidationSchema,
     profileImage: z.string().url().optional()
   })
 });
 
-export const studentValidations = { studentValidationSchema };
+export const studentValidations = { createValidationSchema: createStudentValidationSchema };

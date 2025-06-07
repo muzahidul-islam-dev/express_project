@@ -16,7 +16,8 @@ exports.UserServices = void 0;
 const config_1 = __importDefault(require("../../config"));
 const student_model_1 = require("../students/student.model");
 const user_mode_1 = require("./user.mode");
-const createStudentIntoDB = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
+const user_utils_1 = require("./user.utils");
+const createStudentIntoDB = (password, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // create a user object
     const userData = {};
     // if password is not give, use default password
@@ -24,15 +25,17 @@ const createStudentIntoDB = (password, studentData) => __awaiter(void 0, void 0,
     // set student roll
     userData.role = 'student';
     // set Manually generated id
-    userData.id = '2030100001';
+    // find academic semester info
+    const admissionSemester = yield AcademicSemester.findById(payload.admissionSemester);
+    userData.id = (0, user_utils_1.generateStudentId)(admissionSemester);
     const newUser = yield user_mode_1.User.create(userData);
     // create a student
     // console.log(studentData, 'student data');
     if (Object.keys(newUser).length) {
         // set id, _id as user
-        studentData.id = newUser.id;
-        studentData.user = newUser._id; // reference_id
-        const newStudent = yield student_model_1.Student.create(studentData);
+        payload.id = newUser.id;
+        payload.user = newUser._id; // reference_id
+        const newStudent = yield student_model_1.Student.create(payload);
         return newStudent;
     }
 });
