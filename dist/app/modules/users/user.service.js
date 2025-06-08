@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const config_1 = __importDefault(require("../../config"));
+const academicSemester_model_1 = __importDefault(require("../academicSemester/academicSemester.model"));
 const student_model_1 = require("../students/student.model");
 const user_mode_1 = require("./user.mode");
 const user_utils_1 = require("./user.utils");
@@ -26,8 +27,11 @@ const createStudentIntoDB = (password, payload) => __awaiter(void 0, void 0, voi
     userData.role = 'student';
     // set Manually generated id
     // find academic semester info
-    const admissionSemester = yield AcademicSemester.findById(payload.admissionSemester);
-    userData.id = (0, user_utils_1.generateStudentId)(admissionSemester);
+    const admissionSemester = yield academicSemester_model_1.default.findById(payload.admissionSemester);
+    if (!admissionSemester) {
+        throw new Error('Admission semester not found');
+    }
+    userData.id = yield (0, user_utils_1.generateStudentId)(admissionSemester);
     const newUser = yield user_mode_1.User.create(userData);
     // create a student
     // console.log(studentData, 'student data');

@@ -34,7 +34,7 @@ const createStudentValidationSchema = zod_1.z.object({
             errorMap: () => ({ message: "Gender must be 'male' or 'female'" }),
         }),
         avatar: zod_1.z.string().url().optional(),
-        dateOfBirth: zod_1.z.date().optional(), // Use z.coerce.date() if using date inputs
+        dateOfBirth: zod_1.z.string().optional(), // Use z.coerce.date() if using date inputs
         email: zod_1.z.string().email({ message: "Invalid email" }),
         contactNo: zod_1.z.string().nonempty({ message: "Contact number is required" }),
         emergencycontactNo: zod_1.z.string().nonempty({ message: "Emergency contact number is required" }),
