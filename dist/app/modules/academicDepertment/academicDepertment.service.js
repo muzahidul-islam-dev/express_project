@@ -9,9 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const catchAsync = (fn) => {
-    return (req, res, next) => {
-        Promise.resolve(fn(req, res, next));
-    };
+exports.AcademicDepertmentServices = void 0;
+const academicDepertment_model_1 = require("./academicDepertment.model");
+const createAcademicDepertmentIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = academicDepertment_model_1.AcademicDepertment.create(payload);
+    return result;
+});
+const getAllAcademicFacultiesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = academicDepertment_model_1.AcademicDepertment.find().populate('academicFaculty');
+    return result;
+});
+const getSingleAcademicDepertmentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = academicDepertment_model_1.AcademicDepertment.findById(id);
+    return result;
+});
+const updateAcademicDepertmentIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = academicDepertment_model_1.AcademicDepertment.findOneAndUpdate({
+        _id: id
+    }, payload);
+    return result;
+});
+exports.AcademicDepertmentServices = {
+    createAcademicDepertmentIntoDB,
+    getAllAcademicFacultiesFromDB,
+    getSingleAcademicDepertmentFromDB,
+    updateAcademicDepertmentIntoDB
 };
-const createAcademicDepertmentIntoDB = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () { });

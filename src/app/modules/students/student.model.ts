@@ -123,6 +123,10 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   isDeleted: {
     type: Boolean,
     default: false,
+  },
+  academicDepertment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepertment'
   }
 })
 
@@ -148,9 +152,9 @@ const studentSchema = new Schema<TStudent, StudentModel>({
 
 // Query Middleware
 
-studentSchema.pre('find', function (next) {
-  console.log(this)
-})
+// studentSchema.pre('find', function (next) {
+//   console.log(this)
+// })
 
 // creating a custom static method
 

@@ -12,11 +12,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentServices = void 0;
 const student_model_1 = require("./student.model");
 const getSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.Student.findOne({ id: id });
+    const result = yield student_model_1.Student.findOne({ id: id }).populate('admissionSemester').populate({
+        path: 'academicDepertment',
+        populate: {
+            path: 'academicFaculty'
+        }
+    });
     return result;
 });
 const getAllStudentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.Student.find();
+    const result = yield student_model_1.Student.find().populate('admissionSemester').populate({
+        path: 'academicDepertment',
+        populate: {
+            path: 'academicFaculty'
+        }
+    });
     return result;
 });
 exports.StudentServices = {

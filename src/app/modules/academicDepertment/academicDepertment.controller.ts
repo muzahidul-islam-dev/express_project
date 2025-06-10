@@ -23,7 +23,7 @@ const sendResponse = <T>(res: Response, data: TResponse<T>) => {
 }
 
 const createAcademicDepertment = catchAsync(async (req: Request, res: Response) => {
-  const result = AcademicDepertmentServices.createAcademicDepertmentIntoDB(req.body);
+  const result = await AcademicDepertmentServices.createAcademicDepertmentIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -33,7 +33,7 @@ const createAcademicDepertment = catchAsync(async (req: Request, res: Response) 
 })
 
 const getSingleAcademicDepertment = catchAsync(async (req: Request, res: Response) => {
-  const result = AcademicDepertmentServices.getSingleAcademicDepertmentFromDB(req.params.id)
+  const result = await AcademicDepertmentServices.getSingleAcademicDepertmentFromDB(req.params.id)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -43,7 +43,7 @@ const getSingleAcademicDepertment = catchAsync(async (req: Request, res: Respons
 })
 
 const getAllAcademicDepertment = catchAsync(async (req: Request, res: Response) => {
-  const result = AcademicDepertmentServices.getAllAcademicFacultiesFromDB();
+  const result = await AcademicDepertmentServices.getAllAcademicFacultiesFromDB();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -53,7 +53,7 @@ const getAllAcademicDepertment = catchAsync(async (req: Request, res: Response) 
 })
 
 const updateAcademicDepertment = catchAsync(async (req: Request, res: Response) => {
-  const result = AcademicDepertmentServices.updateAcademicDepertmentIntoDB(req.params.id, req.body)
+  const result = await AcademicDepertmentServices.updateAcademicDepertmentIntoDB(req.params.id, req.body)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

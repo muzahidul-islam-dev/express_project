@@ -12,7 +12,7 @@ const createAcademicDepertmentIntoDB = async (payload: TAcademicDepertment) => {
 
 
 const getAllAcademicFacultiesFromDB = async () => {
-  const result = AcademicDepertment.find();
+  const result = AcademicDepertment.find().populate('academicFaculty');
   return result;
 }
 
@@ -22,9 +22,9 @@ const getSingleAcademicDepertmentFromDB = async (id: string) => {
 }
 
 const updateAcademicDepertmentIntoDB = async (id: string, payload: TAcademicDepertment) => {
-  const result = AcademicDepertment.updateOne({
+  const result = AcademicDepertment.findOneAndUpdate({
     _id: id
-  },payload)
+  }, payload)
   return result;
 }
 

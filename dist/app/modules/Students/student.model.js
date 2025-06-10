@@ -125,6 +125,10 @@ const studentSchema = new mongoose_1.Schema({
     isDeleted: {
         type: Boolean,
         default: false,
+    },
+    academicDepertment: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'AcademicDepertment'
     }
 });
 // pre save middleware/hooks
@@ -140,9 +144,9 @@ const studentSchema = new mongoose_1.Schema({
 //   next();
 // })
 // Query Middleware
-studentSchema.pre('find', function (next) {
-    console.log(this);
-});
+// studentSchema.pre('find', function (next) {
+//   console.log(this)
+// })
 // creating a custom static method
 studentSchema.statics.isUserExists = function (id) {
     return __awaiter(this, void 0, void 0, function* () {
