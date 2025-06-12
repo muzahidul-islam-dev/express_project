@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicDepertment = void 0;
 const mongoose_1 = require("mongoose");
+const AppError_1 = __importDefault(require("../../error/AppError"));
 const academicDepertmentSchema = new mongoose_1.Schema({
     name: {
         required: true,
@@ -29,7 +33,7 @@ academicDepertmentSchema.pre('findOneAndUpdate', function (next) {
         const query = this.getQuery();
         const isDepertmentExist = yield exports.AcademicDepertment.findOne(query);
         if (!isDepertmentExist) {
-            throw new AppError(404, 'This depertment does not exist!');
+            throw new AppError_1.default(404, 'This depertment does not exist!');
         }
         next();
     });

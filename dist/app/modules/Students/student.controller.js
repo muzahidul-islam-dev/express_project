@@ -36,7 +36,17 @@ const getAllStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(vo
         data: result
     });
 }));
+const deleteStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_service_1.StudentServices.deleteStudentFromDB(req.params.studentId);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Student Delete successfully',
+        data: result
+    });
+}));
 exports.StudentController = {
     editSingleStudent,
-    getAllStudent
+    getAllStudent,
+    deleteStudent
 };
