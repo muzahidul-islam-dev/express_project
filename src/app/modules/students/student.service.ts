@@ -49,12 +49,20 @@ const deleteStudentFromDB = async (id: string) => {
   } catch (error) {
     await session.abortTransaction();
     await session.endSession()
+
+    throw new Error('Failed to delete Student')
   }
 
+}
+
+const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
+  const result = await Student.findOneAndUpdate({ id }, payload)
+  return result;
 }
 
 export const StudentServices = {
   getSingleStudentFromDB,
   getAllStudentsFromDB,
-  deleteStudentFromDB
+  deleteStudentFromDB,
+  updateStudentIntoDB
 }

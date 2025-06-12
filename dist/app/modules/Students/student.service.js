@@ -55,10 +55,16 @@ const deleteStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         yield session.abortTransaction();
         yield session.endSession();
+        throw new Error('Failed to delete Student');
     }
+});
+const updateStudentIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_model_1.Student.findOneAndUpdate({ id }, payload);
+    return result;
 });
 exports.StudentServices = {
     getSingleStudentFromDB,
     getAllStudentsFromDB,
-    deleteStudentFromDB
+    deleteStudentFromDB,
+    updateStudentIntoDB
 };

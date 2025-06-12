@@ -58,6 +58,7 @@ const createStudentIntoDB = (password, payload) => __awaiter(void 0, void 0, voi
     catch (error) {
         yield session.abortTransaction();
         yield session.endSession();
+        throw new Error('Failed to create user');
     }
 });
 exports.UserServices = {
